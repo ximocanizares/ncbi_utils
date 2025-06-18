@@ -84,6 +84,11 @@ def download_fastq_from_sra(
 
         fast_out_dir = working_dir_path / "fast"
 
+        # $ac	Accession – the SRA accession number (e.g., SRR123456)
+        # $si	Spot ID – a unique integer identifier for each spot (i.e., sequencing cluster or template molecule)
+        # $ri	Read Index – 0-based index of the read within the spot (e.g., 0 for read 1, 1 for read 2 in a paired-end run)
+        # $sg	Spot Group – usually corresponds to barcodes or sample identifiers; can be empty if not used
+        # $sn	Spot Name – the original name of the spot, often a read name from the sequencing instrument
         cmd = [
             FASTERQ_DUMP_BIN,
             "--outdir",
@@ -95,7 +100,7 @@ def download_fastq_from_sra(
             str(fasterq_dump_num_threads),
             "--skip-technical",
             "--seq-defline",
-            r"@$ac.$si.$ri:$sg:$sn",
+            r"@$ac.$si:$sg:$sn/$ri",
             str(sra_dir),
         ]
         if verbose:
