@@ -271,8 +271,6 @@ def fetch_experiment_info(experiment_id: str):
 
     info = {"acc": experiment.find("IDENTIFIERS").find("PRIMARY_ID").text}
     info["study_acc"] = experiment.find("STUDY_REF").attrib["accession"]
-    info["Bioproject_acc"] = experiment.find("STUDY_REF").find("IDENTIFIERS").find("EXTERNAL_ID").text
-    
     info["design"] = {
         "description": experiment.find("DESIGN").find("DESIGN_DESCRIPTION").text,
         "sample": experiment.find("DESIGN")
